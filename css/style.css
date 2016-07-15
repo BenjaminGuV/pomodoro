@@ -1,0 +1,22 @@
+.panel-head{
+    position: absolute;
+    top: 24%;
+    width: 100%;
+    text-align: center;
+}
+
+#tiempo{
+	font-size: 8em;
+}
+
+.margen{
+	margin: 5px 0px;
+}
+
+.fondo-temp{
+	background-repeat: none;
+}
+
+.fondo1{
+	
+}
