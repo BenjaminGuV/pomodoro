@@ -30,6 +30,7 @@ export class AppComponent {
 
 	constructor( public titulo: Title, public notificacion: PushNotificationComponent ){
 		setInterval(() => this.tick(), 1000);
+		this.notificacion.requestPermission();
 	}
 
 	private tick(): void {
