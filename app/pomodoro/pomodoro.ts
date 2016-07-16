@@ -13,6 +13,7 @@ export class AppComponent {
 	isPaused: boolean      = true;
 	buttonLabel: string    = "Iniciar";
 	icono: string          = "fa-play";
+	temp_titulo: string    = "";
 
 	constructor( public titulo: Title ){
 		setInterval(() => this.tick(), 1000);
@@ -22,7 +23,6 @@ export class AppComponent {
 		if (!this.isPaused) {
 			this.buttonLabel = 'Parar';
 			this.icono       = "fa-stop";
-			this.setTitulo( String( this.segundos ) );
 
 			if ( --this.segundos < 0 ) {
 				this.segundos = 59;
@@ -30,6 +30,10 @@ export class AppComponent {
 					this.resetTimer();
 				}
 			}
+
+			this.temp_titulo = String( this.minutos ) + " " + String( this.segundos ) + " Pomodoro";
+			this.setTitulo( this.temp_titulo );
+
 		}
 	}
 
@@ -43,6 +47,10 @@ export class AppComponent {
 		this.segundos    = 0;
 		this.buttonLabel = 'Iniciar';
 		this.icono       = 'fa-play';
+
+		this.temp_titulo = String( this.minutos ) + " " + String( this.segundos ) + " Pomodoro";
+		this.setTitulo( this.temp_titulo );
+
 	}
 
 
