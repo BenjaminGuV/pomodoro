@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { PushNotificationComponent } from '../push/notificacion';
 
 @Component({
   selector: 'pomodoro-app',
-  templateUrl: 'app/pomodoro/cuadro.html'
+  templateUrl: 'app/pomodoro/cuadro.html',
+  directives: [ PushNotificationComponent ],
+  providers: [ PushNotificationComponent ]
 })
 
 export class AppComponent {
@@ -15,7 +18,17 @@ export class AppComponent {
 	icono: string          = "fa-play";
 	temp_titulo: string    = "";
 
-	constructor( public titulo: Title ){
+	public notification: any = {
+		show: false,
+		title: 'New Angular 2 Library!',
+		body: 'ng2-notifications',
+		icon: 'https://goo.gl/3eqeiE',
+		action: function () {
+	  		window.open('https://github.com/alexcastillo/ng2-notifications');
+		}
+	};
+
+	constructor( public titulo: Title, public notificacion: PushNotificationComponent ){
 		setInterval(() => this.tick(), 1000);
 	}
 
@@ -29,6 +42,14 @@ export class AppComponent {
 				if ( --this.minutos < 0 ) {
 					this.resetTimer();
 				}
+			}
+
+			if( this.minutos == 0 && this.segundos == 0 ) {
+				this.notificacion.title = "¡Se termino el tiempo!";
+				this.notificacion.body  = "El tiempo fue de " + this.limite_minutos + " minutos";
+				this.notificacion.icon  = "http://icon-icons.com/icons2/37/PNG/128/alarmclock_alarm_3338.png";
+				this.notificacion.show();
+				console.log("termine");
 			}
 
 			this.temp_titulo = String( this.minutos ) + ":" + String( this.segundos ) + " Pomodoro";
