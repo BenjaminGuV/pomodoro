@@ -31,6 +31,7 @@ export class AppComponent {
 	constructor( public titulo: Title, public notificacion: PushNotificationComponent ){
 		setInterval(() => this.tick(), 1000);
 		this.notificacion.requestPermission();
+
 	}
 
 	private tick(): void {
@@ -50,6 +51,12 @@ export class AppComponent {
 				this.notificacion.body  = "El tiempo fue de " + this.limite_minutos + " minutos";
 				this.notificacion.icon  = "http://icon-icons.com/icons2/37/PNG/128/alarmclock_alarm_3338.png";
 				this.notificacion.show();
+
+				var audio = new Audio();
+				audio.src = "http://soundbible.com/mp3/Ship_Bell-Mike_Koenig-1911209136.mp3";
+				audio.load();
+				audio.play();
+
 				console.log("termine");
 			}
 
