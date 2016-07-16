@@ -31,7 +31,7 @@ export class AppComponent {
 				}
 			}
 
-			this.temp_titulo = String( this.minutos ) + " " + String( this.segundos ) + " Pomodoro";
+			this.temp_titulo = String( this.minutos ) + ":" + String( this.segundos ) + " Pomodoro";
 			this.setTitulo( this.temp_titulo );
 
 		}
@@ -48,7 +48,7 @@ export class AppComponent {
 		this.buttonLabel = 'Iniciar';
 		this.icono       = 'fa-play';
 
-		this.temp_titulo = String( this.minutos ) + " " + String( this.segundos ) + " Pomodoro";
+		this.temp_titulo = String( this.minutos ) + ":" + String( this.segundos ) + " Pomodoro";
 		this.setTitulo( this.temp_titulo );
 
 	}
