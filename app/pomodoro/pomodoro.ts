@@ -17,25 +17,19 @@ export class AppComponent {
 	buttonLabel: string    = "Iniciar";
 	icono: string          = "fa-play";
 	temp_titulo: string    = "";
-
-	public notification: any = {
-		show: false,
-		title: 'New Angular 2 Library!',
-		body: 'ng2-notifications',
-		icon: 'https://goo.gl/3eqeiE',
-		action: function () {
-	  		window.open('https://github.com/alexcastillo/ng2-notifications');
-		}
-	};
+	historial: string      = "";
 
 	constructor( public titulo: Title, public notificacion: PushNotificationComponent ){
 		setInterval(() => this.tick(), 1000);
+
+		//permiso para la notificación
 		this.notificacion.requestPermission();
 
 	}
 
 	private tick(): void {
 		if (!this.isPaused) {
+
 			this.buttonLabel = 'Parar';
 			this.icono       = "fa-stop";
 
@@ -52,15 +46,17 @@ export class AppComponent {
 				this.notificacion.icon  = "http://icon-icons.com/icons2/37/PNG/128/alarmclock_alarm_3338.png";
 				this.notificacion.show();
 
+				//audio al finalizar los minutos
 				var audio = new Audio();
 				audio.src = "http://soundbible.com/mp3/Ship_Bell-Mike_Koenig-1911209136.mp3";
 				audio.load();
 				audio.play();
 
-				console.log("termine");
+				this.setHistorial( "Fin: limite " + this.limite_minutos + " minuto" );
+				console.log("Finalice");
 			}
 
-			this.temp_titulo = String( this.minutos ) + ":" + String( this.segundos ) + " Pomodoro";
+			this.temp_titulo = this.cerosIzq( this.minutos ) + ":" + this.cerosIzq( this.segundos ) + " Pomodoro";
 			this.setTitulo( this.temp_titulo );
 
 		}
@@ -77,7 +73,7 @@ export class AppComponent {
 		this.buttonLabel = 'Iniciar';
 		this.icono       = 'fa-play';
 
-		this.temp_titulo = String( this.minutos ) + ":" + String( this.segundos ) + " Pomodoro";
+		this.temp_titulo = this.cerosIzq( this.minutos ) + ":" + this.cerosIzq( this.segundos ) + " Pomodoro";
 		this.setTitulo( this.temp_titulo );
 
 	}
@@ -85,6 +81,11 @@ export class AppComponent {
 
 	togglePause(): void {
 		this.isPaused = !this.isPaused;
+
+		if( this.buttonLabel == 'Iniciar' ) {
+			this.setHistorial( "Iniciar: limite " + this.limite_minutos + " minuto" );
+		}
+
 		if (this.minutos < 24 || this.segundos < 59) {
 			this.buttonLabel = this.isPaused ? 'Reanudar' : 'Parar';
 			this.icono       = this.isPaused ? 'fa-undo' : 'fa-stop';
@@ -94,6 +95,23 @@ export class AppComponent {
 	setLimite( minutos ){
 		this.limite_minutos = minutos;
 		this.resetTimer();
+	}
+
+	cerosIzq( numero ){
+		let cadena:string = "";
+
+		if(numero <= 9) {
+			cadena = "0" + String( numero );
+		}else{
+			cadena = String( numero );
+		}
+
+		return cadena;
+	}
+
+	setHistorial( mensaje ){
+		console.log("mensaje", mensaje);
+		this.historial += mensaje + '<br />';
 	}
 
 }
