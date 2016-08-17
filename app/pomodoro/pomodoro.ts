@@ -17,7 +17,7 @@ export class AppComponent {
 	buttonLabel: string    = "Iniciar";
 	icono: string          = "fa-play";
 	temp_titulo: string    = "";
-	historial: string      = "";
+	historiales: any[]       = [];
 
 	constructor( public titulo: Title, public notificacion: PushNotificationComponent ){
 		setInterval(() => this.tick(), 1000);
@@ -110,8 +110,9 @@ export class AppComponent {
 	}
 
 	setHistorial( mensaje ){
-		console.log("mensaje", mensaje);
-		this.historial += mensaje + '<br />';
+		console.log("mensajes", mensaje);
+		this.historiales.unshift( mensaje );
+		console.log( "his", this.historiales );
 	}
 
 }

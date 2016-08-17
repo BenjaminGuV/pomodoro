@@ -22,7 +22,10 @@
 		<div class="col-md-12 white">
 			<h4>Historial</h4>
 		</div>
-		<div class="col-md-12 white" [innerHTML]="historial">
+		<div class="col-md-12 white">
+			<div *ngFor="let historial of historiales">
+				<span class="lista-historial">{{historial}}</span>
+			</div>
 		</div>
 	</div>
 </div>
